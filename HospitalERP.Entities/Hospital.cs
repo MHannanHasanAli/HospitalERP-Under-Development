@@ -1,6 +1,6 @@
 ﻿namespace HospitalERP.Entities
 {
-    public class HospitalInfo
+    public class Hospital
     {
         public int Id { get; set; }
         public string Name { get; set; }

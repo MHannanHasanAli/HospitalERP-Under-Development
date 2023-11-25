@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HospitalERP.Entities\HospitalERP.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

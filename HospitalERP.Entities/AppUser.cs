@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalERP.Entities
 {
-    public class AppUser
+    public class AppUser : IdentityUser
     {
         public string Name { get; set; }
         public Gender Gender { get; set; }
