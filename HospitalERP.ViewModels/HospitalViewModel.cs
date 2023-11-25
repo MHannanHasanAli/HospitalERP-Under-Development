@@ -31,5 +31,6 @@ namespace HospitalERP.ViewModels
                 Country = hospital.Country
             };
         }
+        public int View { get; set; }
     }
 }

@@ -1,0 +1,103 @@
+﻿@model HospitalActionViewModel
+
+<style>
+    
+</style>
+@if (Model.View != -1)
+{
+    if (Model.Id != 0)
+    {
+        <h1>Edit Hospital</h1>
+    }
+    else
+    {
+        <h1>New Hospital</h1>
+    }
+}
+else
+{
+    <h1>Hospital Details</h1>
+}
+
+
+<hr />
+
+   
+<form asp-action="Action">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    
+    <div class="form-group" hidden>
+        <label asp-for="Id" class="control-label"></label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+         <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+         </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Pincode" class="control-label"></label>
+                <input asp-for="Pincode" class="form-control" />
+                <span asp-validation-for="Pincode" class="text-danger"></span>               
+            </div>
+        </div>
+    <br />
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+    </div>     
+    <br />
+    <div class="botton-section" style="float:right;">
+        <a asp-action="Index" class="btn btn-danger MediumBtn">Back</a>
+    @if (Model.View != -1)
+    {
+       @if(Model.Id != 0){
+                <input type="submit" value="Save" class="btn btn-primary MediumBtn" />
+       }
+       else
+       {
+                <input type="submit" value="Add" class="btn btn-primary MediumBtn" />
+       }
+    }
+    else{
+
+    }
+    </div>
+</form>
+   
+<script>
+    $(document).ready(function () {
+        // Check if @Model.View == -1
+        if (@Model.View == -1) {
+            // Disable all input boxes
+            $('input').prop('disabled', true);
+        }
+    });
+</script>
+
+

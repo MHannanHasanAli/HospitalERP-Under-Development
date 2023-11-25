@@ -12,10 +12,12 @@ namespace HospitalERP.Database
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HospitalERP-DB;Trusted_Connection=true;MultipleActiveResultSets=true");
+            base.OnConfiguring(optionsBuilder);
         }
+
 
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Appointment> Appointments { get; set; }

@@ -14,15 +14,21 @@ namespace HospitalERP.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Action(int ID = 0)
+        public IActionResult Action(int id = 0, int view = 0)
         {
             HospitalActionViewModel model = new HospitalActionViewModel();
 
-            if (ID != 0)
+            if (id != 0)
             {
-                var hospital = HospitalServices.Instance.GetHospitalById(ID);
-                model.GetViewModel(hospital);
+                var hospital = HospitalServices.Instance.GetHospitalById(id);
+                model = model.GetViewModel(hospital);
+
+                if (view != 0)
+                {
+                    model.View = -1;
+                }
             }
+
             return View("Action", model);
         }
 
@@ -42,20 +48,19 @@ namespace HospitalERP.Web.Controllers
             }
 
 
-            return Json(new { success = true });
+            return RedirectToAction("Index");
         }
 
 
-        [HttpPost]
-        public IActionResult Delete(HospitalActionViewModel model)
+        [HttpGet]
+        public IActionResult Delete(int id = 0)
         {
-            if (model.Id != 0)
+            if (id != 0)
             {
-
-                HospitalServices.Instance.DeleteHospital(model.Id);
+                HospitalServices.Instance.DeleteHospital(id);
             }
 
-            return Json(new { success = true });
+            return RedirectToAction("Index");
         }
     }
 }

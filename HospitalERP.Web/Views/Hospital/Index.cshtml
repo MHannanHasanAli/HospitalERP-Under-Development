@@ -1,0 +1,97 @@
+﻿@model HospitalERP.ViewModels.HospitalListingViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1 class="page-title">Hospitals</h1>
+<hr />
+<div class="row">
+    
+    <div class="col-md-4">
+            <input type="text" class="form-control" id="search" placeholder="Search">
+    </div>
+    <div class="col-md-2">
+       
+        <select class="form-control" id="searchColumn">
+            <option  value="" disabled selected>Search Fitler</option>
+            <option  value="Name">Name</option>
+            <option  value="Type">Type</option>
+            <option  value="City">City</option>
+            <option  value="Country">Country</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <a asp-action="Action" class="btn btn-primary AddBtn">Add Hospital</a>
+    </div>
+</div>
+<br />
+<div class="row">
+       
+@foreach (var item in Model.Hospitals) {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+                        <!-- Use Bootstrap's flex utility classes -->
+                        <img src="~/Static-Images/hospital.png" class="static-image" />
+                        <div>
+                        <h1 hidden>@Html.DisplayFor(modelItem => item.Id)</h1>
+                        <h5 class="card-title" id="Name">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" id="City">@Html.DisplayFor(modelItem => item.City)
+                        </h6>
+                            </div>
+                        <ion-icon name="ellipsis-vertical" style="font-size: 35px;"></ion-icon>
+                    </div>
+                    
+                    <div class="button-section hidden">
+                        <a href="@Url.Action("Action", new { id = item.Id })" class="btn btn-primary"
+                           data-toggle="tooltip" data-placement="top" title="Edit">
+                            <ion-icon name="create-outline"></ion-icon>
+                        </a>
+
+                        <a href="@Url.Action("Action", new { id = item.Id, view = -1 })" class="btn btn-success"
+                           data-toggle="tooltip" data-placement="top" title="View">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </a>
+
+                        <a class="btn btn-danger" id="deletebutton"
+                           data-toggle="tooltip" data-placement="top" title="Delete">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </a>
+                    </div>
+                    <div class="hidden-buttons hidden">
+
+                        <div>
+                            <p class="deleteconfirmation">Are you sure you want to delete this?</p>
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-primary" id="deletebutton"><ion-icon name="checkmark-outline"></ion-icon></a>
+                            <a class="btn btn-danger" id="Canceldelete"><ion-icon name="close-outline"></ion-icon></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+ }
+
+</div>
+<script>
+    $(document).ready(function () {
+        $("#search").on("input", function () {         
+            var value = $(this).val().toLowerCase();
+            var column = $("#searchColumn").val();
+
+            if (column === null) {
+                column = "Name";
+            }
+
+            $(".col-md-3").filter(function () {
+                var cardId = $(this).find("#" + column).text().toLowerCase();
+                $(this).toggle(cardId.includes(value));
+            });
+        });
+
+
+    });
+</script>
