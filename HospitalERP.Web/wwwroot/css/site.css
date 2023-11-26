@@ -59,3 +59,14 @@ body {
     margin-right:10px;
     margin-top: -8px;
 }
+
+.card-body-main-div{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.grow-on-hover:hover {
+    transform: scale(1.2); /* Adjust the scale factor as needed */
+    transition: transform 0.1s ease; /* Adjust the transition duration and easing function */
+}
