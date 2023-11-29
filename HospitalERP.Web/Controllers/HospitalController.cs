@@ -6,8 +6,16 @@ namespace HospitalERP.Web.Controllers
 {
     public class HospitalController : Controller
     {
+        private readonly IHttpContextAccessor _contextAccessor;
+
+        public HospitalController(IHttpContextAccessor contextAccessor)
+        {
+            _contextAccessor = contextAccessor;
+        }
+
         public IActionResult Index()
         {
+            _contextAccessor.HttpContext.Session.SetString("nav-bar", "hospital");
             HospitalListingViewModel model = new HospitalListingViewModel();
             model.Hospitals = HospitalServices.Instance.GetHospitals();
             return View(model);

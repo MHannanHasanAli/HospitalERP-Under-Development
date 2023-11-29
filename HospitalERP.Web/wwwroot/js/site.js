@@ -11,6 +11,8 @@
     $('.confirm-delete, .cancel-delete').click(function () {
         $('.hidden-buttons').addClass('hidden');
     });
+
+    /* menu hover icon tooltip*/
     $('[data-toggle="tooltip"]').tooltip();
 
     /*card search*/

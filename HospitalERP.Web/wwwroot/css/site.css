@@ -1,8 +1,19 @@
 html {
   font-size: 14px;
 }
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-@media (min-width: 768px) {
+body {
+    /* min-height: 100vh;*/
+    background: #fff;
+}
+
+@media (min-width: 766px) {
   html {
     font-size: 14px;
   }
@@ -17,9 +28,9 @@ html {
   min-height: 100%;
 }
 
-body {
+/*body {
   margin-bottom: 60px;
-}
+}*/
 
 /*Custom CSS*/
 .form-group {
@@ -69,4 +80,12 @@ body {
 .grow-on-hover:hover {
     transform: scale(1.2); /* Adjust the scale factor as needed */
     transition: transform 0.1s ease; /* Adjust the transition duration and easing function */
+}
+
+.card{
+    margin-top:10px;
+}
+
+.top-bar{
+    margin-top:10px;
 }

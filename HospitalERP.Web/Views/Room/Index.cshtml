@@ -1,0 +1,38 @@
+﻿@model HospitalERP.ViewModels.RoomListingViewModel
+
+<h1>Rooms</h1>
+
+<p>
+    <a asp-action="Action">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Room Number</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+
+    </thead>
+    <tbody>
+@foreach (var item in Model.rooms) {
+        <tr>
+            <td>
+                    @item.RoomNumber
+            </td>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @item.Status
+                </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

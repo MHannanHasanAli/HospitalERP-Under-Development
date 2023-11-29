@@ -1,0 +1,228 @@
+﻿
+
+.navigation {
+    position: fixed;
+/*    top: 20px;
+    bottom: 20px;
+    left: 20px;*/
+    background: #4d5bf9;
+    width: 70px;
+/*    border-radius: 40px;*/
+    border-left: 5px solid #4d5bf9;
+    box-sizing: initial;
+    transition: width 0.5s;
+    overflow-x: hidden;
+    height:100vh;
+    z-index:999;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 91px;
+    left: 0;
+    width: 100%;
+    transition: top 1s;
+    padding-left: 5px;
+    padding-top: 40px;
+}
+
+.navigation ul li {
+    position: relative;
+    list-style: none;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.5em;
+}
+
+.navigation ul li a .icon box-icon {
+    font-size: 1.5em;
+    color:white;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    padding-left: 15px;
+    height: 60px;
+    line-height: 60px;
+    white-space: normal;
+}
+
+.navigation ul li.Active {
+    background: #fff;
+}
+
+ .navigation ul li.Active a {
+     color: #333;
+ }
+
+ .navigation.Active {
+     width: 250px;
+     transition: width 0.5s;
+ }
+
+.toggle {
+    /*position:fixed;*/
+    margin-top: 10px;
+    margin-left: 8px;
+    width: 50px;
+    height: 50px;
+    background: #4d5bf9;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    transition: background 0.5s;
+    align-items: center;
+}
+
+    .toggle.Active {
+        background: #ff4d89;
+        transition: background 0.5s;
+    }
+
+    .toggle ion-icon {
+        position: absolute;
+        color: #fff;
+        font-size: 34px;
+        display: none;
+    }
+
+.toggle ion-icon.open,
+.toggle.Active ion-icon.close {
+    display: block;
+    transition: display 0.5s;
+}
+
+.toggle ion-icon.close,
+.toggle.Active ion-icon.open {
+    display: none;
+    transition: display 0.5s;
+}
+
+.navigation ul li b:nth-child(1) {
+    position: absolute;
+    top: -20px;
+    height: 20px;
+    width: 100%;
+    background: #fff;
+    display: none;
+}
+
+    .navigation ul li b:nth-child(1)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #4d5bf9;
+        border-bottom-right-radius: 20px;
+    }
+
+.navigation ul li b:nth-child(2) {
+    position: absolute;
+    bottom: -20px;
+    height: 20px;
+    width: 100%;
+    background: #fff;
+    display: none;
+}
+
+    .navigation ul li b:nth-child(2)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #4d5bf9;
+        border-top-right-radius: 20px;
+    }
+
+.navigation ul li.Active b:nth-child(1),
+.navigation ul li.Active b:nth-child(2) {
+    display: block;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    margin-left: 9px;
+    transition: margin-left 0.5s;
+}
+
+    .logo-img.Active {
+        width: 120px;
+        height: 120px;
+        margin-left: 59px;
+        transition: margin-left 0.5s;
+    }
+
+.main-list.Active {
+    top: 161px;
+    transition: top s;
+}
+
+.main-content {
+    width: 92%;
+    transition: left 0.5s;
+    background: #fff;
+    margin-left: 90px;
+    margin-right:10px;
+    margin-top:10px;
+}
+
+.main-content.Active {
+    margin-left: 280px;
+    width: 92%;
+    transition: left 0.5s;
+}
+
+.container{
+    border: black solid 1px;
+}
+.layout-container {
+    display: flex;
+    
+}
+/*@media (min-width: 427px) and (max-width: 769) {
+    .main-content {
+        width: 80%;
+    }
+}
+*/
+@media (max-width: 769px)
+{
+    .navigation {
+        position: absolute;
+    }
+    .main-content.Active {
+        margin-left: 90px;
+        width: 90%;
+        transition: left 0.5s;
+    }
+}
+

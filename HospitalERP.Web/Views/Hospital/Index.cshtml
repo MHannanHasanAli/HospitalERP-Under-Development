@@ -2,16 +2,14 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-
 <h1 class="page-title">Hospitals</h1>
 <hr />
 <div class="row">
     
-    <div class="col-md-4">
+    <div class="col-md-4 top-bar">
             <input type="text" class="form-control" id="search" placeholder="Search">
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 top-bar">
        
         <select class="form-control" id="searchColumn">
             <option  value="" disabled selected>Search Fitler</option>
@@ -21,7 +19,7 @@
             <option  value="Country">Country</option>
         </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 top-bar">
         <a asp-action="Action" class="btn btn-primary AddBtn">Add Hospital</a>
     </div>
 </div>
