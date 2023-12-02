@@ -22,6 +22,7 @@ namespace HospitalERP.ViewModels
         public string Status { get; set; }
 
         public int HospitalId { get; set; }
+        public Hospital Hospital { get; set; }
 
         public RoomActionViewModel GetViewModel(Room room)
         {
@@ -31,10 +32,12 @@ namespace HospitalERP.ViewModels
                 Type = room.Type,
                 Status = room.Status,
                 RoomNumber = room.RoomNumber,
-                HospitalId = room.HospitalId
+                HospitalId = room.HospitalId,
+                Hospital = room.Hospital
             };
         }
         public int View { get; set; }
+        public List<Hospital> Hospitals { get; set; }
     }
 
 }

@@ -12,12 +12,14 @@ namespace HospitalERP.Web.Controllers
         {
             _contextAccessor = contextAccessor;
         }
-
         public IActionResult Index()
         {
             _contextAccessor.HttpContext.Session.SetString("nav-bar", "rooms");
+
             RoomListingViewModel model = new RoomListingViewModel();
+
             model.rooms = RoomServices.Instance.GetRooms();
+
             return View(model);
         }
 
@@ -25,6 +27,7 @@ namespace HospitalERP.Web.Controllers
         public IActionResult Action(int id = 0, int view = 0)
         {
             RoomActionViewModel model = new RoomActionViewModel();
+
 
             if (id != 0)
             {
@@ -37,6 +40,8 @@ namespace HospitalERP.Web.Controllers
                 }
             }
 
+            model.Hospitals = HospitalServices.Instance.GetHospitals();
+
             return View("Action", model);
         }
 
@@ -44,6 +49,8 @@ namespace HospitalERP.Web.Controllers
         [HttpPost]
         public IActionResult Action(RoomActionViewModel model)
         {
+            model.Hospital = HospitalServices.Instance.GetHospitalById(model.HospitalId);
+
             if (model.Id != 0)
             {
                 RoomServices.Instance.UpdateRoom(
