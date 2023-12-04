@@ -82,7 +82,6 @@ namespace HospitalERP.Services
                 RoomNumber = model.RoomNumber,
                 Status = model.Status,
                 HospitalId = model.HospitalId,
-                Hospital = model.Hospital
             };
         }
         #endregion

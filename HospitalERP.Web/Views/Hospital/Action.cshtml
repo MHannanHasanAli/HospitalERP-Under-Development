@@ -41,13 +41,19 @@ else
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
-         <div class="col-md-3">
+        <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <select asp-for="Type" class="form-control">
+                    <option value="General Medical & Surgical">General Medical & Surgical</option>
+                    <option value="Cardio">Cardio</option>
+                    <option value="Physiotherapy">Physiotherapy</option>
+                    <option value="Psychiatric">Psychiatric</option>
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-         </div>
+        </div>
+
         <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="Pincode" class="control-label"></label>
@@ -96,6 +102,7 @@ else
         if (@Model.View == -1) {
             // Disable all input boxes
             $('input').prop('disabled', true);
+            $('select').prop('disabled', true);
         }
     });
 </script>

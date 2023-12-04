@@ -33,7 +33,7 @@ namespace HospitalERP.ViewModels
                 Status = room.Status,
                 RoomNumber = room.RoomNumber,
                 HospitalId = room.HospitalId,
-                Hospital = room.Hospital
+
             };
         }
         public int View { get; set; }

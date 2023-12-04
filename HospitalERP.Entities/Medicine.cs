@@ -7,8 +7,11 @@
         public string Type { get; set; }
         public string Description { get; set; }
         public decimal Cost { get; set; }
-        public ICollection<MedicineReport> MedicineReport { get; set; }
-
-        public ICollection<PrescribedMedicine> PrescribedMedicine { get; set; }
+        public decimal Price { get; set; }
+        public string Company { get; set; }
+        public int Quantity { get; set; }
+        public DateTime ProductionDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public int SupplierId { get; set; }
     }
 }

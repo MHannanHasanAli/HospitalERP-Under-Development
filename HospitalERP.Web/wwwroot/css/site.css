@@ -89,3 +89,16 @@ html {
 .top-bar{
     margin-top:10px;
 }
+
+a{
+    text-decoration:none;
+}
+
+.button-section{
+    margin-top:5px;
+    float:right;
+}
+
+.hidden-buttons{
+    margin-top:5px;
+}

@@ -1,20 +1,5 @@
 ﻿$(document).ready(function () {
-    $('.row-menu').click(function () {      
-        $('.button-section').toggleClass('hidden');
-    });
-
-    $('.delete-button').click(function () {
-        var confirmationId = $(this).data('delete-confirmation');
-        $(confirmationId).toggleClass('hidden');
-    });
-
-    $('.confirm-delete, .cancel-delete').click(function () {
-        $('.hidden-buttons').addClass('hidden');
-    });
-
-    /* menu hover icon tooltip*/
-    $('[data-toggle="tooltip"]').tooltip();
-
+   
     /*card search*/
     $("#search").on("input", function () {
         var value = $(this).val().toLowerCase();
@@ -36,8 +21,10 @@
 
         // Hide all other options before showing the current one
         $(".button-section").not("[data-item-id='" + itemId + "']").addClass("hidden");
+        $(".hidden-buttons").not("[data-item-id='" + itemId + "']").addClass("hidden");
 
         // Toggle visibility for options of the clicked card
         $(".button-section[data-item-id='" + itemId + "']").toggleClass("hidden");
+        $(".hidden-buttons[data-item-id='" + itemId + "']").addClass("hidden");
     });
 });
