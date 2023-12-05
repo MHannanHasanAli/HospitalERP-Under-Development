@@ -117,6 +117,20 @@
             buttonSection.removeClass("hidden");
             hiddenButtons.addClass("hidden");
         });
+
+        $("#search").on("input", function () {
+            var value = $(this).val().toLowerCase();
+            var column = $("#searchColumn").val();
+
+            if (column === null) {
+                column = "Name";
+            }
+
+            $(".searchit").filter(function () {
+                var cardId = $(this).find("#" + column).text().toLowerCase();
+                $(this).toggle(cardId.includes(value));
+            });
+        });
     });
 </script>
 

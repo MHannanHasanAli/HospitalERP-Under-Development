@@ -2,16 +2,16 @@
    
     /*card search*/
     $("#search").on("input", function () {
-        var value = $(this).val().toLowerCase();
-        var column = $("#searchColumn").val();
 
-        if (column === null) {
-            column = "Name";
-        }
+        var searchText = $(this).val().toLowerCase();
+        var searchColumn = $("#searchColumn").val().toLowerCase();
 
-        $(".searchit").filter(function () {
-            var cardId = $(this).find("#" + column).text().toLowerCase();
-            $(this).toggle(cardId.includes(value));
+        $(".searchit tr").filter(function () {
+            // Get the text content of the cell in the selected column
+            var cellText = $(this).find("td:eq(" + $("#searchColumn option:selected").index() + ")").text().toLowerCase();
+
+            // Show/hide the row based on the search criteria
+            $(this).toggle(cellText.indexOf(searchText) > -1);
         });
     });
 
