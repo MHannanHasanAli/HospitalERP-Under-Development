@@ -1,3 +1,7 @@
+using HospitalERP.Database;
+using HospitalERP.Entities;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +18,15 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 3;
+
+}).AddEntityFrameworkStores<AppDbContext>();
+
+
 
 var app = builder.Build();
 app.UseSession();
@@ -32,7 +45,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Hospital}/{action=Index}/{id?}");
