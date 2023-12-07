@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+<h1>All Roles</h1>
+
+@if (Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <br />
+                    <span id="confirmationspan_@item.Id" style="display:none;">
+                        <span>Are you sure you want to delete this role?</span><br />
+                        <a class="btn btn-danger" asp-controller="Administration"
+                           asp-action="DeleteRole" asp-route-id="@item.Id">
+                            <ion-icon name="checkmark-outline"></ion-icon>
+                        </a>
+                        <a onclick="DontDelete('@item.Id'); return false;" class="btn btn-primary"><ion-icon name="open-outline"></ion-icon></a>
+                    </span>
+                    <span id="deletespan_@item.Id">
+                        <a class="btn btn-primary"
+                           asp-controller="Administration" asp-action="EditRole" asp-route-id="@item.Id">
+                            Edit
+                        </a>
+                        <a class="btn btn-danger btn-delete" data-item-id="@item.Id"
+                           onclick="DeleteConfirmation('@item.Id'); return false;">Delete</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">No Roles Exist!</h5>
+                <br />
+
+
+                <a class="btn btn-primary"
+                   asp-controller="Role" asp-action="CreateRole">
+                    Add Role
+                </a>
+
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function DeleteConfirmation(id) {
+
+        var itemId = id; // Assuming you have data-item-id attribute on the delete button
+
+        // Remove display: none from confirmationspan
+        $("#confirmationspan_" + itemId).css("display", "");
+
+        // Add display: none to deletespan
+        $("#deletespan_" + itemId).css("display", "none");
+    }
+    function DontDelete(id) {
+
+        var itemId = id; // Assuming you have data-item-id attribute on the delete button
+
+        // Remove display: none from confirmationspan
+        $("#confirmationspan_" + itemId).css("display", "none");
+
+        // Add display: none to deletespan
+        $("#deletespan_" + itemId).css("display", "");
+    }
+
+</script>
