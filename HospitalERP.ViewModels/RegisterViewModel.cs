@@ -32,7 +32,7 @@ namespace HospitalERP.ViewModels
         [Required]
         public string Address { get; set; }
 
-        public string Status { get; set; }
+
 
         [Required]
         public DateTime DateOfBirth { get; set; }
@@ -40,15 +40,16 @@ namespace HospitalERP.ViewModels
         public DateTime DischargeDate { get; set; }
 
 
+
+
+
+        public int HospitalId { get; set; }
+        public int RoomId { get; set; }
+        public int DepartmentId { get; set; }
+        public string Status { get; set; }
         public string BloodGroup { get; set; }
         public string Salary { get; set; }
         public string Education { get; set; }
         public string Position { get; set; }
-
-
-        [Required]
-        public int HospitalId { get; set; }
-        public int RoomId { get; set; }
-        public int DepartmentId { get; set; }
     }
 }
