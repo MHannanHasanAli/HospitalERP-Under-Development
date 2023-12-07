@@ -1,5 +1,12 @@
 ﻿@model RegisterViewModel
-
+<style>
+    .col-md-6{
+        
+    }
+  /*   .col-md-6{
+        margin-inline:20px;
+    } */
+</style>
 @* @if (Model.View != -1)
 {
     if (Model.Id != 0)
@@ -18,12 +25,11 @@ else
 
 
 <hr />
-
-   
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+<div class="col-lg-6">
+<form method="post" class="d-flex" style="flex-wrap:wrap;">
+    <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-lg-5">
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" />
@@ -31,7 +37,7 @@ else
             </div>
             <div class="form-group">
                 <label asp-for="Age"></label>
-                <input asp-for="Age" class="form-control" type="number"/>
+                <input asp-for="Age" class="form-control" type="number" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,7 +52,7 @@ else
             </div>
             <div class="form-group">
                 <label asp-for="Phone"></label>
-                <input asp-for="Phone" class="form-control" type="tel"/>
+                <input asp-for="Phone" class="form-control" type="tel" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -69,26 +75,38 @@ else
                 </select>
                 <span asp-validation-for="BloodGroup" class="text-danger"></span>
             </div>
+        </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-lg-5">
+
             <div class="form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" type="email"/>
+                <input asp-for="Email" class="form-control" type="email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" type="password"/>
+                <input asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" type="password />
+                <input asp-for="ConfirmPassword" class="form-control" type="password" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <br />
-            <button type="submit" class="btn btn-danger">Register</button>
-        </form>
-    </div>
+            <button type="submit" class="btn btn-danger" style="float:right;">Register</button>
+        </div>
+       
+    
+</form>
 </div>
+
+ <img class="col-lg-6" src="~/Static-Images/patientcover.jpg" style="float:right;" />
+
+
+</div>
+
    
 
 

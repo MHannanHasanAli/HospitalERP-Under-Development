@@ -19,6 +19,7 @@ namespace HospitalERP.Database
             base.OnConfiguring(optionsBuilder);
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Room> Rooms { get; set; }
 

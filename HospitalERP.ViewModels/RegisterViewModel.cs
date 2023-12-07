@@ -46,10 +46,10 @@ namespace HospitalERP.ViewModels
         public int HospitalId { get; set; }
         public int RoomId { get; set; }
         public int DepartmentId { get; set; }
-        public string Status { get; set; }
-        public string BloodGroup { get; set; }
-        public string Salary { get; set; }
-        public string Education { get; set; }
-        public string Position { get; set; }
+        public string Status { get; set; } = "Nothing";
+        public string BloodGroup { get; set; } = "Not Identified";
+        public string Salary { get; set; } = "Nothing";
+        public string Education { get; set; } = "Nothing";
+        public string Position { get; set; } = "Nothing";
     }
 }
