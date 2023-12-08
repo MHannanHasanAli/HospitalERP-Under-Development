@@ -10,5 +10,11 @@ namespace HospitalERP.Web.Controllers
             HttpContext.Session.SetString("bar-situation", navigationClasses);
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult NotFound()
+        {
+            return View();
+        }
     }
 }
