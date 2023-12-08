@@ -35,7 +35,7 @@ namespace HospitalERP.ViewModels
 
 
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
         public DateTime AdmittedDate { get; set; }
         public DateTime DischargeDate { get; set; }
 

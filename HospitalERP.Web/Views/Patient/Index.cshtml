@@ -1,0 +1,32 @@
+﻿@model PatientListingViewModel
+
+@if (Model.Patients.Any())
+{
+    <table class=" table table table-responsive">
+        <thead>
+        <th><h3>Name</h3></th>
+        <th><h3>Age</h3></th>
+        <th><h3>D.O.B</h3></th>
+        <th><h3>Address</h3></th>
+        <th><h3>Phone</h3></th>
+        <th><h3>Email</h3></th>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Patients)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Age</td>
+                    <td>@user.DateOfBirth</td>
+                    <td>@user.Address</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h5>No Patient exist!</h5>
+}

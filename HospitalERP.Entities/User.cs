@@ -12,8 +12,9 @@ namespace HospitalERP.Entities
         public string Status { get; set; }
 
 
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly RegistrationDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+
+        public DateOnly DateOfBirth { get; set; }
         public DateTime AdmittedDate { get; set; }
         public DateTime DischargeDate { get; set; }
 
