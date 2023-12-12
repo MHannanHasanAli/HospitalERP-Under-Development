@@ -4,6 +4,9 @@ namespace HospitalERP.ViewModels
 {
     public class RegisterViewModel
     {
+
+        public string Id { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }
@@ -51,5 +54,6 @@ namespace HospitalERP.ViewModels
         public string Salary { get; set; } = "Nothing";
         public string Education { get; set; } = "Nothing";
         public string Position { get; set; } = "Nothing";
+        public int View { get; set; }
     }
 }

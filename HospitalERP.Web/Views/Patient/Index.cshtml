@@ -2,7 +2,7 @@
 
 @if (Model.Patients.Any())
 {
-    <table class=" table table table-responsive">
+    <table class="table table-responsive">
         <thead>
         <th><h3>Name</h3></th>
         <th><h3>Age</h3></th>
@@ -15,7 +15,18 @@
             @foreach (var user in Model.Patients)
             {
                 <tr>
-                    <td>@user.Name</td>
+                    <td>
+                        <div class="dropdown">
+                            <span class="dot-icon" data-toggle="dropdown">
+                                <ion-icon name="ellipsis-vertical"></ion-icon></span>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Details</a>
+                                <a class="dropdown-item" href="#">Delete</a>
+                            </div>
+                            @user.Name
+                        </div>
+                    </td>
                     <td>@user.Age</td>
                     <td>@user.DateOfBirth</td>
                     <td>@user.Address</td>
@@ -30,3 +41,22 @@ else
 {
     <h5>No Patient exist!</h5>
 }
+
+<script>
+    $(document).ready(function () {
+        // Add a click event handler to the dot icon
+        $('.dot-icon').on('click', function () {
+            // Toggle the visibility of the closest dropdown-menu
+            $(this).closest('.dropdown').find('.dropdown-menu').toggle();
+        });
+
+        // Close the dropdown when clicking anywhere outside of it
+        $(document).on('click', function (e) {
+            // Check if the clicked element is not inside the dropdown
+            if (!$(e.target).closest('.dropdown').length) {
+                // Hide all dropdowns
+                $('.dropdown-menu').hide();
+            }
+        });
+    });
+</script>

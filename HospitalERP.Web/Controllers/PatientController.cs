@@ -31,16 +31,43 @@ namespace HospitalERP.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Action(string Id = "0")
+        public async Task<IActionResult> Action(string Id = "0")
         {
-            return View();
+            if (Id == "0")
+            {
+                return View();
+            }
+
+            var user = await userManager.FindByIdAsync(Id);
+
+            if (user == null)
+            {
+                return View("NotFound", "Shared");
+            }
+
+            var UserClaims = await userManager.GetClaimsAsync(user);
+            var UserRoles = await userManager.GetRolesAsync(user);
+
+            var model = new PatientActionViewModel();
+
+            model.GetViewModel(user);
+            model.Roles = UserRoles;
+            model.Claims = UserClaims.Select(x => x.Value).ToList();
+
+
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Action(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model.Id == "0")
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
                 var patient = new User
                 {
                     Email = model.Email,
@@ -56,19 +83,30 @@ namespace HospitalERP.Web.Controllers
 
                 var result = await userManager.CreateAsync(patient, model.Password);
 
-                if (result.Succeeded)
+                if (!result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(patient, "Patient");
-                    return RedirectToAction("Index", "Hospital");
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
+                    return View(model);
                 }
 
-                foreach (var item in result.Errors)
-                {
-                    ModelState.AddModelError("", item.Description);
-                }
+                await userManager.AddToRoleAsync(patient, "Patient");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult EditPatient(string id = "0")
+        {
+            return View();
         }
     }
 }
