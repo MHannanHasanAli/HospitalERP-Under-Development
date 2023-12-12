@@ -18,11 +18,12 @@
                     <td>
                         <div class="dropdown">
                             <span class="dot-icon" data-toggle="dropdown">
-                                <ion-icon name="ellipsis-vertical"></ion-icon></span>
+                                <ion-icon name="ellipsis-vertical"></ion-icon>
+                            </span>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Details</a>
-                                <a class="dropdown-item" href="#">Delete</a>
+                                <a class="dropdown-item" asp-route-id="@user.Id">Edit</a>
+                                <a class="dropdown-item" asp-route-id="@user.Id">Details</a>
+                                <a class="dropdown-item delete-option" data-toggle="modal" data-target="#deleteModal" data-id="@user.Id">Delete</a>
                             </div>
                             @user.Name
                         </div>
@@ -39,8 +40,29 @@
 }
 else
 {
-    <h5>No Patient exist!</h5>
+    <h5>No Patient exists!</h5>
 }
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger" id="deleteButton" asp-action="Delete" asp-route-id="">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -58,5 +80,15 @@ else
                 $('.dropdown-menu').hide();
             }
         });
+
+        // Handle the delete option click event
+        $('.delete-option').on('click', function () {
+            // Get the user ID from the data-id attribute
+            var userId = $(this).data('id');
+
+            // Set the data-id attribute of the delete button inside the modal
+            $('#deleteButton').attr('asp-route-id', userId);
+        });
+
     });
 </script>

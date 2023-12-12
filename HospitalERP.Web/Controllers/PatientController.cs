@@ -16,6 +16,7 @@ namespace HospitalERP.Web.Controllers
             this.roleManager = roleManager;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             PatientListingViewModel model = new PatientListingViewModel();
@@ -31,7 +32,7 @@ namespace HospitalERP.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Action(string Id = "0")
+        public async Task<IActionResult> Action(string Id = "0", int view = 0)
         {
             if (Id == "0")
             {
@@ -48,12 +49,15 @@ namespace HospitalERP.Web.Controllers
             var UserClaims = await userManager.GetClaimsAsync(user);
             var UserRoles = await userManager.GetRolesAsync(user);
 
-            var model = new PatientActionViewModel();
+            var model = new PatientActionViewModel(user);
 
-            model.GetViewModel(user);
             model.Roles = UserRoles;
             model.Claims = UserClaims.Select(x => x.Value).ToList();
 
+            if (view == -1)
+            {
+                model.View = -1;
+            }
 
             return View(model);
         }
@@ -103,10 +107,28 @@ namespace HospitalERP.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult EditPatient(string id = "0")
+        [HttpPost]
+        public async Task<IActionResult> Delete(string Id)
         {
-            return View();
+            var user = await userManager.FindByIdAsync(Id);
+
+            if (user == null)
+            {
+                return View("NotFound", "Shared");
+            }
+
+            var result = await userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+
+            }
+            return View("Index");
+
         }
     }
 }

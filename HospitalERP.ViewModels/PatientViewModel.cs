@@ -20,6 +20,22 @@ namespace HospitalERP.ViewModels
 
     public class PatientActionViewModel()
     {
+        public PatientActionViewModel(User user) : this()
+        {
+            PatientId = user.Id;
+            Name = user.Name;
+            Age = user.Age;
+            CNIC = user.CNIC;
+            Phone = user.Phone;
+            Address = user.Address;
+            Status = user.Status;
+            DateOfBirth = user.DateOfBirth;
+            BloodGroup = user.BloodGroup;
+            View = 0;
+            Claims = new List<string>();
+            Roles = new List<string>();
+        }
+
         public string PatientId { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
@@ -31,22 +47,7 @@ namespace HospitalERP.ViewModels
         public string BloodGroup { get; set; }
         public List<string> Claims { get; set; }
         public IList<string> Roles { get; set; }
-
-        public User GetViewModel(User user)
-        {
-            return new User
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Age = user.Age,
-                CNIC = user.CNIC,
-                Phone = user.Phone,
-                Address = user.Address,
-                Status = user.Status,
-                DateOfBirth = user.DateOfBirth,
-                BloodGroup = user.BloodGroup
-            };
-        }
+        public int View { get; set; } = 0;
     }
 }
 
