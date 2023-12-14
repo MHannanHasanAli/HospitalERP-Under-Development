@@ -19,13 +19,13 @@ namespace HospitalERP.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            PatientListingViewModel model = new PatientListingViewModel();
+            RegisterListingViewModel model = new RegisterListingViewModel();
 
             foreach (var user in userManager.Users)
             {
                 if (await userManager.IsInRoleAsync(user, "Patient"))
                 {
-                    model.Patients.Add(user);
+                    model.Users.Add(user);
                 }
             }
             return View(model);
@@ -36,7 +36,9 @@ namespace HospitalERP.Web.Controllers
         {
             if (Id == "0")
             {
-                return View();
+                var tempmodel = new RegisterActionViewModel();
+                tempmodel.Id = "0";
+                return View(tempmodel);
             }
 
             var user = await userManager.FindByIdAsync(Id);
@@ -49,10 +51,10 @@ namespace HospitalERP.Web.Controllers
             var UserClaims = await userManager.GetClaimsAsync(user);
             var UserRoles = await userManager.GetRolesAsync(user);
 
-            var model = new PatientActionViewModel(user);
+            var model = new RegisterActionViewModel(user);
 
-            model.Roles = UserRoles;
-            model.Claims = UserClaims.Select(x => x.Value).ToList();
+            //model.Roles = UserRoles;
+            //model.Claims = UserClaims.Select(x => x.Value).ToList();
 
             if (view == -1)
             {
@@ -63,10 +65,17 @@ namespace HospitalERP.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Action(RegisterViewModel model)
+        public async Task<IActionResult> Action(RegisterActionViewModel model)
         {
             if (model.Id == "0")
             {
+                var role = await roleManager.FindByNameAsync("Patient");
+
+                if (role != null)
+                {
+                    model.Roles.Add(role);
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return View(model);
@@ -101,13 +110,44 @@ namespace HospitalERP.Web.Controllers
             }
             else
             {
+                var user = await userManager.FindByIdAsync(model.Id);
+
+                if (user == null)
+                {
+                    return RedirectToAction("NotFound", "Shared");
+                }
+
+
+                user.Name = model.Name;
+                user.Age = model.Age;
+                user.BloodGroup = model.BloodGroup;
+                user.CNIC = model.CNIC;
+                user.DateOfBirth = model.DateOfBirth;
+                user.Address = model.Address;
+                user.Phone = model.Phone;
+
+
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
+
+                    return RedirectToAction("NotFound", "Shared");
+                }
+
+                return RedirectToAction("Index");
 
             }
 
-            return View(model);
+
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Delete(string Id)
         {
             var user = await userManager.FindByIdAsync(Id);
@@ -127,7 +167,7 @@ namespace HospitalERP.Web.Controllers
                 }
 
             }
-            return View("Index");
+            return RedirectToAction("Index");
 
         }
     }

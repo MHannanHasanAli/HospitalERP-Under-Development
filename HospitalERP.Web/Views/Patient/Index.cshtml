@@ -1,68 +1,82 @@
-﻿@model PatientListingViewModel
+﻿@model RegisterListingViewModel
+<h1 class="page-title">Patients</h1>
+<hr />
+<div class="row">
 
-@if (Model.Patients.Any())
-{
-    <table class="table table-responsive">
-        <thead>
-        <th><h3>Name</h3></th>
-        <th><h3>Age</h3></th>
-        <th><h3>D.O.B</h3></th>
-        <th><h3>Address</h3></th>
-        <th><h3>Phone</h3></th>
-        <th><h3>Email</h3></th>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Patients)
-            {
-                <tr>
-                    <td>
-                        <div class="dropdown">
-                            <span class="dot-icon" data-toggle="dropdown">
-                                <ion-icon name="ellipsis-vertical"></ion-icon>
-                            </span>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-route-id="@user.Id">Edit</a>
-                                <a class="dropdown-item" asp-route-id="@user.Id">Details</a>
-                                <a class="dropdown-item delete-option" data-toggle="modal" data-target="#deleteModal" data-id="@user.Id">Delete</a>
-                            </div>
-                            @user.Name
-                        </div>
-                    </td>
-                    <td>@user.Age</td>
-                    <td>@user.DateOfBirth</td>
-                    <td>@user.Address</td>
-                    <td>@user.Phone</td>
-                    <td>@user.Email</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <h5>No Patient exists!</h5>
-}
+    <div class="col-md-4 top-bar">
+        <input type="text" class="form-control" id="search" placeholder="Search">
+    </div>
+    <div class="col-md-2 top-bar">
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this user?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" id="deleteButton" asp-action="Delete" asp-route-id="">Delete</a>
-            </div>
-        </div>
+        <select class="form-control" id="searchColumn">
+            <option value="" disabled selected>Search Fitler</option>
+            <option value="Name">Name</option>
+            <option value="Type">Type</option>
+            <option value="City">City</option>
+            <option value="Country">Country</option>
+        </select>
+    </div>
+    <div class="col-md-6 top-bar">
+        <a asp-action="Action" class="btn btn-primary AddBtn">Add Patient</a>
     </div>
 </div>
+<br />
+<table class="table table-responsive">
+    <thead>
+    <th><h3>Name</h3></th>
+    <th><h3>Age</h3></th>
+    <th><h3>D.O.B</h3></th>
+    <th><h3>Address</h3></th>
+    <th><h3>Phone</h3></th>
+    <th><h3>Email</h3></th>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>
+                    <div class="dropdown">
+                        <span class="dot-icon" data-toggle="dropdown">
+                            <ion-icon name="ellipsis-vertical"></ion-icon>
+                        </span>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-action="Action" asp-route-id="@user.Id">Edit</a>
+                            <a class="dropdown-item" asp-action="Action" asp-route-id="@user.Id" asp-route-view=-1>Details</a>
+                            <a class="dropdown-item delete-option" data-toggle="modal" data-target="#deleteModal" data-id="@user.Id">Delete</a>
+                        </div>
+                        @user.Name
+                    </div>
+                </td>
+                <td>@user.Age</td>
+                <td>@user.DateOfBirth</td>
+                <td>@user.Address</td>
+                <td>@user.Phone</td>
+                <td>@user.Email</td>
+            </tr>
+            <!-- Delete Confirmation Modal without close button -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this user?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="closemodal">Cancel</button>
+                            <a class="btn btn-danger" id="deleteButton" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>
+
+
+
+
 
 <script>
     $(document).ready(function () {
@@ -81,13 +95,16 @@ else
             }
         });
 
-        // Handle the delete option click event
         $('.delete-option').on('click', function () {
-            // Get the user ID from the data-id attribute
+            debugger
             var userId = $(this).data('id');
+            $('#deleteModal').modal('show');
+            $('#deleteButton').attr('asp-route', userId);
 
-            // Set the data-id attribute of the delete button inside the modal
-            $('#deleteButton').attr('asp-route-id', userId);
+        });
+
+        $('#closemodal').on('click', function () {
+            $('#deleteModal').modal('hide');
         });
 
     });

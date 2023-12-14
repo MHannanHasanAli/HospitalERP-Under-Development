@@ -1,59 +1,50 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HospitalERP.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace HospitalERP.ViewModels
 {
     public class RegisterViewModel
     {
 
+
+    }
+
+    public class RegisterListingViewModel()
+    {
+        public List<User> Users { get; set; } = new List<User>();
+    }
+
+    public class RegisterActionViewModel()
+    {
+        public RegisterActionViewModel(User user) : this()
+        {
+            Id = user.Id;
+            Name = user.Name;
+            Age = user.Age;
+            CNIC = user.CNIC;
+            Phone = user.Phone;
+            Address = user.Address;
+            //Status = user.Status;
+            DateOfBirth = user.DateOfBirth;
+            BloodGroup = user.BloodGroup;
+            View = 0;
+            //Claims = new List<string>();
+            Roles = new List<IdentityRole>();
+        }
         public string Id { get; set; }
-
-        [Required]
-        [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password")]
-        [Compare("Password", ErrorMessage = "Password does not match.")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [Required]
         public int Age { get; set; }
-
-        [Required]
         public string CNIC { get; set; }
-
-        [Required]
         public string Phone { get; set; }
-
-        [Required]
         public string Address { get; set; }
-
-
-
-        [Required]
+        //public string Status { get; set; }
         public DateOnly DateOfBirth { get; set; }
-        public DateTime AdmittedDate { get; set; }
-        public DateTime DischargeDate { get; set; }
-
-
-
-
-
-        public int HospitalId { get; set; }
-        public int RoomId { get; set; }
-        public int DepartmentId { get; set; }
-        public string Status { get; set; } = "Nothing";
-        public string BloodGroup { get; set; } = "Not Identified";
-        public string Salary { get; set; } = "Nothing";
-        public string Education { get; set; } = "Nothing";
-        public string Position { get; set; } = "Nothing";
-        public int View { get; set; }
+        public string BloodGroup { get; set; }
+        //public List<string> Claims { get; set; }
+        public IList<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
+        public int View { get; set; } = 0;
     }
 }
