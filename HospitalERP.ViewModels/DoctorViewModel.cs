@@ -3,20 +3,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HospitalERP.ViewModels
 {
-    public class RegisterViewModel
+    public class DoctorViewModel
     {
-
-
     }
 
-    public class RegisterListingViewModel()
+    public class DoctorListingViewModel()
     {
-        public List<User> Users { get; set; } = new List<User>();
+        public List<User> Doctors { get; set; } = new List<User>();
     }
 
-    public class RegisterActionViewModel()
+    public class DoctorActionViewModel()
     {
-        public RegisterActionViewModel(User user) : this()
+        public DoctorActionViewModel(User user) : this()
         {
             Id = user.Id;
             Name = user.Name;
@@ -24,11 +22,10 @@ namespace HospitalERP.ViewModels
             CNIC = user.CNIC;
             Phone = user.Phone;
             Address = user.Address;
-            //Status = user.Status;
             DateOfBirth = user.DateOfBirth;
-            BloodGroup = user.BloodGroup;
-            View = 0;
-            //Claims = new List<string>();
+            Salary = user.Salary;
+            Position = user.Position;
+            Education = user.Education;
             Roles = new List<IdentityRole>();
         }
         public string Id { get; set; }
@@ -40,11 +37,11 @@ namespace HospitalERP.ViewModels
         public string CNIC { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        //public string Status { get; set; }
         public DateOnly DateOfBirth { get; set; }
-        public string BloodGroup { get; set; }
-        //public List<string> Claims { get; set; }
-        public IList<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
-        public int View { get; set; } = 0;
+        public string Salary { get; set; }
+        public string Education { get; set; }
+        public string Position { get; set; }
+        public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
+        public int View { get; set; }
     }
 }

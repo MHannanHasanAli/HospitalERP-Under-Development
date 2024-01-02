@@ -19,13 +19,13 @@ namespace HospitalERP.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            RegisterListingViewModel model = new RegisterListingViewModel();
+            PatientListingViewModel model = new PatientListingViewModel();
 
             foreach (var user in userManager.Users)
             {
                 if (await userManager.IsInRoleAsync(user, "Patient"))
                 {
-                    model.Users.Add(user);
+                    model.Patients.Add(user);
                 }
             }
             return View(model);
@@ -36,7 +36,7 @@ namespace HospitalERP.Web.Controllers
         {
             if (Id == "0")
             {
-                var tempmodel = new RegisterActionViewModel();
+                var tempmodel = new PatientActionViewModel();
                 tempmodel.Id = "0";
                 return View(tempmodel);
             }
@@ -48,13 +48,7 @@ namespace HospitalERP.Web.Controllers
                 return View("NotFound", "Shared");
             }
 
-            var UserClaims = await userManager.GetClaimsAsync(user);
-            var UserRoles = await userManager.GetRolesAsync(user);
-
-            var model = new RegisterActionViewModel(user);
-
-            //model.Roles = UserRoles;
-            //model.Claims = UserClaims.Select(x => x.Value).ToList();
+            var model = new PatientActionViewModel(user);
 
             if (view == -1)
             {
@@ -65,8 +59,11 @@ namespace HospitalERP.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Action(RegisterActionViewModel model)
+        public async Task<IActionResult> Action(PatientActionViewModel model)
         {
+
+            if (model.View == -1) { return RedirectToAction("Index"); }
+
             if (model.Id == "0")
             {
                 var role = await roleManager.FindByNameAsync("Patient");
@@ -117,7 +114,6 @@ namespace HospitalERP.Web.Controllers
                     return RedirectToAction("NotFound", "Shared");
                 }
 
-
                 user.Name = model.Name;
                 user.Age = model.Age;
                 user.BloodGroup = model.BloodGroup;
@@ -125,8 +121,6 @@ namespace HospitalERP.Web.Controllers
                 user.DateOfBirth = model.DateOfBirth;
                 user.Address = model.Address;
                 user.Phone = model.Phone;
-
-
 
                 var result = await userManager.UpdateAsync(user);
 
