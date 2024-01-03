@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalERP.Web.Controllers
 {
-    public class DoctorController : Controller
+    public class ManagementController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public DoctorController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public ManagementController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -19,13 +19,13 @@ namespace HospitalERP.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new DoctorListingViewModel();
+            var model = new ManagementListingViewModel();
 
             foreach (var user in userManager.Users)
             {
-                if (await userManager.IsInRoleAsync(user, "Doctor"))
+                if (await userManager.IsInRoleAsync(user, "Management"))
                 {
-                    model.Doctors.Add(user);
+                    model.Managements.Add(user);
                 }
             }
 
@@ -37,7 +37,7 @@ namespace HospitalERP.Web.Controllers
         {
             if (Id == "0")
             {
-                var Createmodel = new DoctorActionViewModel();
+                var Createmodel = new ManagementActionViewModel();
                 Createmodel.Id = "0";
                 return View(Createmodel);
             }
@@ -49,7 +49,7 @@ namespace HospitalERP.Web.Controllers
                 return RedirectToAction("NotFound", "Shared");
             }
 
-            var model = new DoctorActionViewModel(user);
+            var model = new ManagementActionViewModel(user);
 
             if (view == -1) { model.View = -1; }
 
@@ -57,20 +57,20 @@ namespace HospitalERP.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Action(DoctorActionViewModel model)
+        public async Task<IActionResult> Action(ManagementActionViewModel model)
         {
             if (model.View == -1) { return RedirectToAction("Index"); }
 
             if (model.Id == "0")
             {
-                var role = await roleManager.FindByNameAsync("Doctor");
+                var role = await roleManager.FindByNameAsync("Management");
 
                 if (role != null) { model.Roles.Add(role); }
 
                 if (!ModelState.IsValid) { return View(model); }
 
 
-                var Doctor = new User
+                var Management = new User
                 {
                     Email = model.Email,
                     UserName = model.Email,
@@ -85,7 +85,7 @@ namespace HospitalERP.Web.Controllers
                     CNIC = model.CNIC,
                 };
 
-                var result = await userManager.CreateAsync(Doctor, model.Password);
+                var result = await userManager.CreateAsync(Management, model.Password);
 
                 if (!result.Succeeded)
                 {
@@ -97,7 +97,7 @@ namespace HospitalERP.Web.Controllers
                     return View(model);
                 }
 
-                await userManager.AddToRoleAsync(Doctor, role.Name);
+                await userManager.AddToRoleAsync(Management, role.Name);
             }
             else
             {

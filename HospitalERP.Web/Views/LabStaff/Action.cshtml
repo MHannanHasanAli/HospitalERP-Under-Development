@@ -1,20 +1,20 @@
-﻿@model DoctorActionViewModel
+﻿@model LabStaffActionViewModel
 
 
 @if (Model.View != -1)
 {
     if (Model.Id != "0")
     {
-        <h1 class="page-title">Edit Doctor</h1>
+        <h1 class="page-title">Edit Lab Staff</h1>
     }
     else
     {
-        <h1 class="page-title">New Doctor</h1>
+        <h1 class="page-title">New Lab Staff</h1>
     }
 }
 else
 {
-    <h1 class="page-title">Doctor Details</h1>
+    <h1 class="page-title">Lab Staff Details</h1>
 }
 
 
@@ -22,6 +22,7 @@ else
 <div class="row">
     <div class="col-lg-6">
         <form method="post" class="d-flex" style="flex-wrap:wrap;">
+           
 
             <div class="form-group" hidden>
                 <input asp-for="Id" class="form-control" />
@@ -69,18 +70,16 @@ else
                     <input asp-for="Salary" class="form-control" />
                     <span asp-validation-for="Salary" class="text-danger"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label asp-for="Position"></label>
                     <select asp-for="Position" class="form-control">
                         <option value="Intern">Intern</option>
-                        <option value="Senior Consultant">Senior Consultant</option>
-                        <option value="Head Of Department">Head Of Department</option>
-                        <option value="Junior Resident">Junior Resident</option>
-                        <option value="Chief Resident">Chief Resident</option>
-                        <option value="Senior Resident">Senior Resident</option>
-                        <option value="Medical Director">Medical Director</option>
-                        <option value="Attending Physician">Attending Physician</option>
+                        <option value="Assistant">Assistant</option>
+                        <option value="Phlebotomist">Phlebotomist</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Technical Supervisor">Technical Supervisor</option>
+                        <option value="Head Of Department">Head Of Department</option>                       
                     </select>
                     <span asp-validation-for="Position" class="text-danger"></span>
                 </div>
@@ -143,7 +142,7 @@ else
         </form>
     </div>
 
-    <img class="col-lg-6" src="~/Static-Images/doctorcover.jpg" style="float:right;" />
+    <img class="col-lg-6" src="~/Static-Images/patientcover.jpg" style="float:right;" />
 
 
 </div>
@@ -159,7 +158,6 @@ else
     });
 
 
-    // Attach the event listener to the date input field
     document.getElementById('DateOfBirth').addEventListener('change', calculateAge);
 </script>
 

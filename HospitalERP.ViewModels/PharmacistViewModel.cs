@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HospitalERP.ViewModels
 {
-    public class LabStaffViewModel
+    public class PharmacistViewModel
     {
-    }
-    public class LabStaffListingViewModel()
-    {
-        public List<User> LabStaffs { get; set; } = new List<User>();
     }
 
-    public class LabStaffActionViewModel()
+    public class PharmacistListingViewModel()
     {
-        public LabStaffActionViewModel(User user) : this()
+        public List<User> Pharmacists { get; set; } = new List<User>();
+    }
+
+    public class PharmacistActionViewModel()
+    {
+        public PharmacistActionViewModel(User user) : this()
         {
             Id = user.Id;
             Name = user.Name;
