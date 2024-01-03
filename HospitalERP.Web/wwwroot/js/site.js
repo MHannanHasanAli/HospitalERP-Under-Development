@@ -28,3 +28,23 @@
         $(".hidden-buttons[data-item-id='" + itemId + "']").addClass("hidden");
     });
 });
+
+function calculateAge() {
+    // Get the selected date from the input field
+    var selectedDate = new Date(document.getElementById('DateOfBirth').value);
+
+    // Get the current date
+    var currentDate = new Date();
+
+    // Calculate the age
+    var age = currentDate.getFullYear() - selectedDate.getFullYear();
+
+    // Adjust age if birthday hasn't occurred yet this year
+    if (currentDate.getMonth() < selectedDate.getMonth() ||
+        (currentDate.getMonth() === selectedDate.getMonth() && currentDate.getDate() < selectedDate.getDate())) {
+        age--;
+    }
+
+    // Display the calculated age
+    document.getElementById('Age').value = age;
+}

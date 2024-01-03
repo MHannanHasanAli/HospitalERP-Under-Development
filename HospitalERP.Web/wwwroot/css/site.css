@@ -102,3 +102,7 @@ a{
 .hidden-buttons{
     margin-top:5px;
 }
+
+.dot-icon{
+    cursor: pointer;
+}
