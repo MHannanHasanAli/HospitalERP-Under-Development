@@ -1,0 +1,160 @@
+﻿@model MaintenanceActionViewModel
+
+
+@if (Model.View != -1)
+{
+    if (Model.Id != "0")
+    {
+        <h1 class="page-title">Edit Maintenance</h1>
+    }
+    else
+    {
+        <h1 class="page-title">New Maintenance</h1>
+    }
+}
+else
+{
+    <h1 class="page-title">Maintenance Details</h1>
+}
+
+
+<hr />
+<div class="row">
+    <div class="col-lg-6">
+        <form method="post" class="d-flex" style="flex-wrap:wrap;">
+
+            <div class="form-group" hidden>
+                <input asp-for="Id" class="form-control" />
+            </div>
+
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBirth">Date Of Birth</label>
+                    <input asp-for="DateOfBirth" id="DateOfBirth" class="form-control" type="date" data-val-date="Please enter a valid date" value="@DateTime.Now.ToString("yyyy-MM-dd")" onchange="calculateAge()" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Age"></label>
+                    <input asp-for="Age" class="form-control" type="number" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CNIC"></label>
+                    <input asp-for="CNIC" class="form-control" />
+                    <span asp-validation-for="CNIC" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control" type="tel" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Salary"></label>
+                    <input asp-for="Salary" class="form-control" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Position"></label>
+                    <select asp-for="Position" class="form-control">
+                        <option value="Electrician">Electrician</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Surgical">Surgical</option>
+                        <option value="CCTV System">CCTV System</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <span asp-validation-for="Position" class="text-danger"></span>
+                </div>
+                @if (Model.Id != "0")
+                {
+                    <br />
+                    if (Model.View != -1)
+                    {
+                        <button type="submit" class="btn btn-danger" style="float:right;">Update</button>
+                    }
+                    <button Action="Index" class="btn btn-primary" style="float:left;">Back</button>
+                }
+            </div>
+
+
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            @if (Model.Id == "0")
+            {
+                <div class="col-lg-5">
+
+                    <hr>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" type="email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <br />
+                    @if (Model.View != -1)
+                    {
+                        if (Model.Id != "0")
+                        {
+
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-danger" style="float:right;">Register</button>
+                        }
+                    }
+
+                    <button Action="Index" class="btn btn-primary" style="float:left;">Back</button>
+                    <br />
+                    <br />
+                    <div asp-validation-summary="All" class="text-danger" style="float:left;"></div>
+                </div>
+            }
+
+
+
+        </form>
+    </div>
+
+    <img class="col-lg-6" src="~/Static-Images/doctorcover.jpg" style="float:right;" />
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Check if @Model.View == -1
+        if (@Model.View == -1) {
+            // Disable all input boxes
+            $('input').prop('disabled', true);
+            $('select').prop('disabled', true);
+        }
+    });
+
+
+    // Attach the event listener to the date input field
+    document.getElementById('DateOfBirth').addEventListener('change', calculateAge);
+</script>
+
+
+
+
