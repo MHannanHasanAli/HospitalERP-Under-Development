@@ -1,0 +1,107 @@
+﻿@model ComplainListingViewModel
+
+<h1 class="page-title">Complain Center</h1>
+<hr />
+<div class="row">
+
+    <div class="col-md-4 top-bar">
+        <input type="text" class="form-control" id="search" placeholder="Search">
+    </div>
+    <div class="col-md-2 top-bar">
+
+        <select class="form-control" id="searchColumn">
+            <option value="" disabled selected>Search Fitler</option>
+            <option value="Name">Name</option>
+            <option value="Email">Email</option>
+            <option value="Role">Role</option>
+        </select>
+    </div>
+    <div class="col-md-6 top-bar">
+        <a asp-action="Action" class="btn btn-primary AddBtn">Add Nurse</a>
+    </div>
+</div>
+<br />
+<table class="table table-responsive">
+    <thead>
+    <th><h3>Name</h3></th>
+    <th><h3>Email</h3></th>
+    <th><h3>Role</h3></th>
+    <th><h3>Date</h3></th>
+    </thead>
+    <tbody>
+        @foreach (var complain in Model.Complains)
+        {
+            <tr>
+                <td>
+                    <div class="dropdown">
+                        <span class="dot-icon" data-toggle="dropdown">
+                            <ion-icon name="ellipsis-vertical"></ion-icon>
+                        </span>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-action="Action" asp-route-id="@complain.Id">Edit</a>
+                            <a class="dropdown-item" asp-action="Action" asp-route-id="@complain.Id" asp-route-view=-1>Details</a>
+                            <a class="dropdown-item delete-option" data-toggle="modal" data-target="#deleteModal" data-id="@complain.Id">Delete</a>
+                        </div>
+                        @complain.Name
+                    </div>
+                </td>
+                <td>@complain.Email</td>
+                <td>@complain.Role</td>
+                <td>@complain.Date</td>
+               
+            </tr>
+            <!-- Delete Confirmation Modal without close button -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this nurse?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="closemodal">Cancel</button>
+                            <a class="btn btn-danger" id="deleteButton" asp-action="Delete" asp-route-id="@complain.Id">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // Add a click event handler to the dot icon
+        $('.dot-icon').on('click', function () {
+            // Toggle the visibility of the closest dropdown-menu
+            $(this).closest('.dropdown').find('.dropdown-menu').toggle();
+        });
+
+        // Close the dropdown when clicking anywhere outside of it
+        $(document).on('click', function (e) {
+            // Check if the clicked element is not inside the dropdown
+            if (!$(e.target).closest('.dropdown').length) {
+                // Hide all dropdowns
+                $('.dropdown-menu').hide();
+            }
+        });
+
+        $('.delete-option').on('click', function () {
+            var userId = $(this).data('id');
+            $('#deleteModal').modal('show');
+            $('#deleteButton').attr('asp-route', userId);
+
+        });
+
+        $('#closemodal').on('click', function () {
+            $('#deleteModal').modal('hide');
+        });
+
+    });
+</script>

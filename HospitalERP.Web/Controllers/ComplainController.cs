@@ -45,5 +45,30 @@ namespace HospitalERP.Web.Controllers
             }
             return View(model);
         }
+
+        public async Task<IActionResult> Action(int Id)
+        {
+            if (Id == 0) { return View("NotFound", "Shared"); }
+
+            var complain = ComplainServices.Instance.GetComplainById(Id);
+
+            if (complain == null) { return View("NotFound", "Shared"); }
+
+            var model = new ComplainActionViewModel(complain);
+
+            var user = await userManager.FindByIdAsync(model.UserId);
+
+            if (user == null) { return View("NotFound", "Shared"); }
+
+            var role = await userManager.GetRolesAsync(user);
+            var rolename = role?.FirstOrDefault();
+
+            model.Name = user.Name;
+            model.Email = user.Email;
+            model.Role = rolename;
+
+
+            return View(model);
+        }
     }
 }
