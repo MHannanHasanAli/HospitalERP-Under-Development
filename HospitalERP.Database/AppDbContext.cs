@@ -22,6 +22,7 @@ namespace HospitalERP.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Complain> Complains { get; set; }
 
 
     }

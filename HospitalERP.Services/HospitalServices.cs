@@ -72,7 +72,6 @@ namespace HospitalERP.Services
             }
         }
 
-
         public Hospital GetEntity(HospitalActionViewModel model)
         {
             return new Hospital
