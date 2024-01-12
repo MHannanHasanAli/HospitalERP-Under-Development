@@ -8,7 +8,8 @@ namespace HospitalERP.ViewModels
 
     public class ComplainListingViewModel()
     {
-        public List<ComplainActionViewModel> Complains { get; set; }
+        public List<ComplainActionViewModel> Complains = new List<ComplainActionViewModel>();
+
     }
 
     public class ComplainActionViewModel()
